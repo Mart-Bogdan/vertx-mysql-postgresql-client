@@ -1,0 +1,7 @@
+## SSL certificates from PostgreSQL
+
+It's certificates from https://github.com/CjS77/docker-postgres-cert
+It's used to configure pgsql-client to verify thous cert.
+
+@Mart-Bogdan tried to allow binging custom certificate, so Docker would read from this folder, but that's
+  impossible on Windows OS without special magic.

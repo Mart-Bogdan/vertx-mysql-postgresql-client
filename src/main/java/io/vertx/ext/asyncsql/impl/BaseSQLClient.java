@@ -79,16 +79,16 @@ public abstract class BaseSQLClient {
   public void close(Handler<AsyncResult<Void>> handler) {
     log.info("Stopping async SQL client " + this);
     pool().close(ar -> {
-          if (ar.succeeded()) {
-            if (handler != null) {
-              handler.handle(Future.succeededFuture());
-            }
-          } else {
-            if (handler != null) {
-              handler.handle(Future.failedFuture(ar.cause()));
-            }
+        if (ar.succeeded()) {
+          if (handler != null) {
+            handler.handle(Future.succeededFuture());
+          }
+        } else {
+          if (handler != null) {
+            handler.handle(Future.failedFuture(ar.cause()));
           }
         }
+      }
     );
   }
 
@@ -97,15 +97,15 @@ public abstract class BaseSQLClient {
   }
 
   protected Configuration getConfiguration(
-      String defaultHost,
-      int defaultPort,
-      String defaultDatabase,
-      String defaultUser,
-      String defaultPassword,
-      String defaultCharset,
-      long defaultConnectTimeout,
-      long defaultTestTimeout,
-      JsonObject config) {
+    String defaultHost,
+    int defaultPort,
+    String defaultDatabase,
+    String defaultUser,
+    String defaultPassword,
+    String defaultCharset,
+    long defaultConnectTimeout,
+    long defaultTestTimeout,
+    JsonObject config) {
 
     String host = config.getString("host", defaultHost);
     int port = config.getInteger("port", defaultPort);
@@ -117,24 +117,24 @@ public abstract class BaseSQLClient {
     long testTimeout = config.getLong("testTimeout", defaultTestTimeout);
     Long queryTimeout = config.getLong("queryTimeout");
     Option<Duration> queryTimeoutOption = (queryTimeout == null) ?
-        Option.empty() : Option.apply(Duration.apply(queryTimeout, TimeUnit.MILLISECONDS));
+      Option.empty() : Option.apply(Duration.apply(queryTimeout, TimeUnit.MILLISECONDS));
 
     Map<String, String> sslConfig = buildSslConfig(config);
 
     log.info("Creating configuration for " + host + ":" + port);
     return new Configuration(
-        username,
-        host,
-        port,
-        Option.apply(password),
-        Option.apply(database),
-        SSLConfiguration.apply(sslConfig),
-        charset,
-        16777216,
-        PooledByteBufAllocator.DEFAULT,
-        Duration.apply(connectTimeout, TimeUnit.MILLISECONDS),
-        Duration.apply(testTimeout, TimeUnit.MILLISECONDS),
-        queryTimeoutOption);
+      username,
+      host,
+      port,
+      Option.apply(password),
+      Option.apply(database),
+      SSLConfiguration.apply(sslConfig),
+      charset,
+      16777216,
+      PooledByteBufAllocator.DEFAULT,
+      Duration.apply(connectTimeout, TimeUnit.MILLISECONDS),
+      Duration.apply(testTimeout, TimeUnit.MILLISECONDS),
+      queryTimeoutOption);
   }
 
   private Map<String, String> buildSslConfig(JsonObject config) {

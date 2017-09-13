@@ -20,6 +20,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.ext.asyncsql.AsyncSQLClient;
+import io.vertx.ext.sql.SQLClient;
 
 
 /**

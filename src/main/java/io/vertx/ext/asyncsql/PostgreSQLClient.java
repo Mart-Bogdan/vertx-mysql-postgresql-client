@@ -20,6 +20,7 @@ import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.asyncsql.impl.ClientHelper;
+import io.vertx.ext.sql.SQLClient;
 
 import java.util.UUID;
 
